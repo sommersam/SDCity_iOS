@@ -1,0 +1,102 @@
+//
+//  SDPrefixHeader.pch
+//  Starrunning
+//
+//  Created by luying on 2017/5/10.
+//  Copyright © 2017年 Dong. All rights reserved.
+//
+
+#ifndef SDPrefixHeader_pch
+#define SDPrefixHeader_pch
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+//版本号(注意:检测版本只能从这里进行修改,每一次更新版本记得更新版本号❗️❗️❗️❗️)
+#define VersionCode @"1"
+
+
+//通用接口(正式)
+#define KmainURL @"http://www.dong-city.cn/sdlive"
+
+//通用接口(测试)
+//#define KmainURL @"http://10.10.51.208:8080/sdlive"
+
+#define MyUUID ([[UIDevice currentDevice].identifierForVendor UUIDString])
+
+#define KmainHeight  [UIScreen mainScreen].bounds.size.height
+
+#define KmainWidth  [UIScreen mainScreen].bounds.size.width
+
+#define StatusHeight  ([[UIApplication sharedApplication]statusBarFrame].size.height)
+
+#define KmyColor(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0]
+
+#define KmainColor @"cd361f"
+
+#define KmainNotSelectColor @"707070"
+
+#define KBoldFont(textSize) [UIFont fontWithName:@"Arial-BoldMT" size:(textSize)]
+
+//iPhone5
+#define IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
+//iPhone6
+#define IPHONE6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+
+//iPhone6 Plus
+#define IPHONE6_Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+
+//主要用于判断当前iOS版本号,对其弃用或者未出现的方法进行区别对待
+#define KcurrentSystemVersion [[UIDevice currentDevice] systemVersion]
+
+//弱引用
+#define KweakSelf(type)  __weak typeof(type) weak##type = type;
+
+//强引用
+#define KstrongSelf(type)  __strong typeof(type) type = weak##type;
+
+#ifdef DEBUG
+
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+
+#define NSLog(FORMAT, ...) nil
+#endif
+
+//用户是否打开省流量模式(NSUserDefaults中的Key值)
+#define Suspended @"Suspended"
+
+
+//屏幕适配的内敛函数,根据原型图为1080*1920
+NS_INLINE CGFloat ViewSizeWithPx(float px,BOOL isHightScale){
+    
+    if (isHightScale) {
+        return KmainHeight *(px/1920);
+
+    }else{
+        return KmainWidth *(px/1080);
+
+    }
+  
+}
+
+
+//通知
+#define ChangeUserInfoNotification @"ChangeUserInfoNotification"//用户基本信息变革的通知
+
+
+//用户ID单例 (只在注册期间使用,其他位置皆使用UserManager来获取数据)
+#define UserID @"UserID"
+#define UserAccount @"UserAccount"
+#define UserPassword @"UserPassword"
+
+
+#define isNotShowImageReportVC @"isNotShowImageReportVC"
+
+
+//程序通用工具类
+#import "SDUtils.h"
+
+
+#endif /* SDPrefixHeader_pch */
